@@ -1,12 +1,22 @@
 package com.example.jpaworkshoporiginal.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-
+@Entity
 public class AppUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     private int appUserId;
+    @Column(length = 100, unique = true)
     private String username;
     private String password;
     private LocalDate regDate;
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "fk_details_id")
     private Details userDetails;
 
     public AppUser() {

@@ -1,9 +1,14 @@
 package com.example.jpaworkshoporiginal.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-
+@Entity
 public class Details {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name = "id", updatable = false)
     private int detailsId;
+    @Column(unique = true)
     private String email;
     private String name;
     private LocalDate birthDate;
