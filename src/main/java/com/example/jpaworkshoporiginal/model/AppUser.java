@@ -2,6 +2,8 @@ package com.example.jpaworkshoporiginal.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 public class AppUser {
     @Id
@@ -18,16 +20,19 @@ public class AppUser {
     )
     @JoinColumn(name = "fk_details_id")
     private Details userDetails;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "borrower")
+    private List<BookLoan> loans;
 
     public AppUser() {
     }
 
-    public AppUser(int appUserId, String username, String password, LocalDate regDate, Details userDetails) {
+    public AppUser(int appUserId, String username, String password, LocalDate regDate, Details userDetails, List<BookLoan> loans) {
         this.appUserId = appUserId;
         this.username = username;
         this.password = password;
         this.regDate = regDate;
         this.userDetails = userDetails;
+        this.loans = loans;
     }
 
     public int getAppUserId() {
@@ -68,6 +73,16 @@ public class AppUser {
 
     public void setUserDetails(Details userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public void borrowBook(BookLoan bookLoan){
+        loans.add(bookLoan);
+        bookLoan.setBorrower(this);
+    }
+
+    public void returnBook(BookLoan bookLoan){
+        bookLoan.setBorrower(null);
+        loans.remove(bookLoan);
     }
 
 

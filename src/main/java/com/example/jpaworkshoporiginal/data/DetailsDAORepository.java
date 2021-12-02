@@ -1,7 +1,6 @@
 package com.example.jpaworkshoporiginal.data;
 
 import com.example.jpaworkshoporiginal.model.Details;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,6 @@ public class DetailsDAORepository implements DetailsDAO{
 
     private final EntityManager entityManager;
 
-    @Autowired
     public DetailsDAORepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
