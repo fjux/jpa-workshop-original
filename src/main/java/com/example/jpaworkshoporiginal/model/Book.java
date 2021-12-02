@@ -1,6 +1,7 @@
 package com.example.jpaworkshoporiginal.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -12,15 +13,27 @@ public class Book {
     private String isbn;
     private String title;
     private int maxLoanDays;
+    @ManyToMany
+    @JoinTable(name = "authors_books", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors;
 
     public Book() {
     }
 
-    public Book(int bookId, String isbn, String title, int maxLoanDays) {
+    public Book(int bookId, String isbn, String title, int maxLoanDays, Set<Author> authors) {
         this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
         this.maxLoanDays = maxLoanDays;
+        this.authors = authors;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
     }
 
     public int getBookId() {
