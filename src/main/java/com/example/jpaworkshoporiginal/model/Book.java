@@ -16,6 +16,7 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "authors_books", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
+    private boolean available = true;
 
     public Book() {
     }
@@ -26,6 +27,14 @@ public class Book {
         this.title = title;
         this.maxLoanDays = maxLoanDays;
         this.authors = authors;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public Set<Author> getAuthors() {

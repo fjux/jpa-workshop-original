@@ -1,5 +1,6 @@
 package com.example.jpaworkshoporiginal.data;
 
+import com.example.jpaworkshoporiginal.model.Book;
 import com.example.jpaworkshoporiginal.model.BookLoan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,10 +33,12 @@ public class BookLoanDAORepository implements BookLoanDAO{
     @Override
     public BookLoan create(BookLoan bookLoan) {
         if (bookLoan == null) throw new IllegalArgumentException("BookLoan was null");
-        entityManager.persist(bookLoan);
-        return bookLoan;
+        if (bookLoan.getBook().isAvailable()) {
+            entityManager.persist(bookLoan);
+            bookLoan.getBook().setAvailable(false);
+            return bookLoan;
+        } else throw new IllegalArgumentException("Book is not available");
     }
-
     @Override
     public BookLoan update(BookLoan bookLoan) {
         return entityManager.merge(bookLoan);

@@ -10,7 +10,7 @@ public class Author {
     private int authorId;
     private String firstName;
     private String lastName;
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany
     @JoinTable(name = "authors_books", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> writtenBooks;
 

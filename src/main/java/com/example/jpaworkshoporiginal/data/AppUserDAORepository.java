@@ -24,7 +24,7 @@ public class AppUserDAORepository implements AppUserDAO{
     @Override
     @Transactional(readOnly = true)
     public List<AppUser> findAll() {
-        return entityManager.createQuery("Select a FROM AppUser a", AppUser.class)
+        return entityManager.createQuery("SELECT a FROM AppUser a", AppUser.class)
                 .getResultList();
     }
 
